@@ -10,7 +10,7 @@ namespace Polis_och_Tjuv
     {
         public List<string> SeizedItems { get; set; }
 
-        public Police(int posX, int posY, string name, string sayHello) : base(posX, posY, name, sayHello)
+        public Police(string name, string sayHello) : base(name, sayHello)
         {
             SeizedItems = new List<string>();
         }

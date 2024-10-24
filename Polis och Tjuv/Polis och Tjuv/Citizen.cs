@@ -9,7 +9,7 @@ namespace Polis_och_Tjuv
     internal class Citizen : Person
     {
         public List<string> Items { get; set; }
-        public Citizen(int posX, int posY, string name, string sayHello) : base(posX, posY, name, sayHello)
+        public Citizen(string name, string sayHello) : base(name, sayHello)
         {
             Items = new List<string> { "Phone", "Wallet", "Keys" };
         }

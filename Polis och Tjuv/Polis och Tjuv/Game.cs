@@ -29,40 +29,32 @@ namespace Polis_och_Tjuv
         }
         public void DisplayNews()
         {
-            Console.WriteLine("=NEWS FEED==========================================");
+            Console.WriteLine("=NEWS FEED============================================================================================");
             for (int i = NewsFeed.Count; i > 0; i--)
             {
-                Console.WriteLine(i + ": " + NewsFeed[i-1]);
+                Console.WriteLine(i + ": " + NewsFeed[i - 1]);
             }
-            
+
         }
-        public bool DisplayPerson(List<Person> persons,int x, int y)
+        public bool DisplayPerson(List<Person> persons, int x, int y)
         {
             foreach (Person person in persons)
             {
-                if (person.PosX == x && person.PosY == y )
+                if (person.PosX == x && person.PosY == y)
                 {
-                    if (person is Citizen)
-                    {
-                        Console.Write("C");
-                        return true;
-                    }
-                    else if (person is Thief)
-                    {
-                        Console.Write("T");
-                        return true;
-                    }
-                    else if (person is Police)
-                    {
-                        Console.Write("P");
-                        return true;
-                    }
+
+                    Console.Write(person is Citizen ? "C" :
+                                  person is Police ? "P" :
+                                  person is Thief ? "T" : "");
+                    return true;
+
                 }
             }
             return false;
         }
         public void DisplayCity(List<Person> persons)
         {
+            Console.WriteLine("=CITY=================================================================================================");
             for (int y = 0; y < 25; y++)
             {
                 Console.Write("X");

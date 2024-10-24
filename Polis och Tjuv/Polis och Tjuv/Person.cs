@@ -15,10 +15,9 @@ namespace Polis_och_Tjuv
         public int MoveX { get; set; }
         public int MoveY { get; set; }
 
-        public Person(int posX, int posY,string name, string sayHello)
+        public Person(string name, string sayHello)
         {
-            PosX = posX;
-            PosY = posY;
+            GetPos();
             Name = name;
             SayHello = sayHello;
 
@@ -37,8 +36,30 @@ namespace Polis_och_Tjuv
         }
         public void Move()
         {
-            PosX += MoveX;
-            PosY += MoveY;
+            while (true)
+            {
+                PosX += MoveX;
+                PosY += MoveY;
+
+                if (PosX > 99 || PosX < 0 || PosY < 0 || PosY > 24)
+                {
+                    PosX -= MoveX;
+                    PosY -= MoveY;
+                    GetMovment();
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+
+    public void GetPos()
+        {
+            Random rand = new Random();
+            PosX = rand.Next(0, 100);
+            PosY = rand.Next(0, 25);
         }
     }
 }

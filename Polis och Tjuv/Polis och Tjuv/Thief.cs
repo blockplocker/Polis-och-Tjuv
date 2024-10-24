@@ -11,7 +11,7 @@ namespace Polis_och_Tjuv
         public List<string> StolenItems { get; set; }
         public bool InPrisoned { get; set; }
 
-        public Thief(int posX, int posY, string name, string sayHello) : base(posX, posY, name, sayHello)
+        public Thief(string name, string sayHello) : base(name, sayHello)
         {
             StolenItems = new List<string>();
         }

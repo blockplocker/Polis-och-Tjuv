@@ -36,37 +36,53 @@ namespace Polis_och_Tjuv
             }
 
         }
-        public bool DisplayPerson(List<Person> persons, int x, int y)
+        public void DisplayPerson(Person person)
         {
-            foreach (Person person in persons)
-            {
-                if (person.PosX == x && person.PosY == y)
-                {
-
-                    Console.Write(person is Citizen ? "C" :
+            
+            Console.SetCursorPosition(person.PosX, person.PosY);
+            
+            ConsoleColor color = (person is Citizen ? ConsoleColor.Green :
+                                  person is Police ? ConsoleColor.Blue :
+                                  person is Thief ? ConsoleColor.Red : ConsoleColor.White);
+            Console.ForegroundColor = color;
+            Console.Write(person is Citizen ? "C" :
                                   person is Police ? "P" :
                                   person is Thief ? "T" : "");
-                    return true;
-
-                }
-            }
-            return false;
+            Console.ForegroundColor = ConsoleColor.White;
         }
         public void DisplayCity(List<Person> persons)
         {
+            //Console.WriteLine();
             Console.WriteLine("=CITY=================================================================================================");
             for (int y = 0; y < 25; y++)
             {
                 Console.Write("X");
                 for (int x = 0; x < 100; x++)
                 {
-                    if (!DisplayPerson(persons, x, y))
-                    {
                         Console.Write(" ");
-                    }
+                    
                 }
                 Console.Write("X");
                 Console.WriteLine();
+            }
+        }
+        public void DetectPersonCollision(List<Person> persons)
+        {
+            foreach(Person person in persons)
+            {
+                foreach (Person person2 in persons)
+                {
+                    if(person.PosX == person2.PosX && person.PosY == person2.PosY)
+                    {
+                        if (person is Thief)
+                        {
+                            if (person2 is Citizen)
+                            {
+                                ((Thief)person).Steal(person2 as Citizen, this);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

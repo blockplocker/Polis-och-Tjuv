@@ -41,7 +41,7 @@ namespace Polis_och_Tjuv
                 PosX += MoveX;
                 PosY += MoveY;
 
-                if (PosX > 99 || PosX < 0 || PosY < 0 || PosY > 24)
+                if (PosX > 100 || PosX < 1 || PosY < 1 || PosY > 25)
                 {
                     PosX -= MoveX;
                     PosY -= MoveY;
@@ -58,8 +58,8 @@ namespace Polis_och_Tjuv
     public void GetPos()
         {
             Random rand = new Random();
-            PosX = rand.Next(0, 100);
-            PosY = rand.Next(0, 25);
+            PosX = rand.Next(1, 100);
+            PosY = rand.Next(1, 25);
         }
     }
 }

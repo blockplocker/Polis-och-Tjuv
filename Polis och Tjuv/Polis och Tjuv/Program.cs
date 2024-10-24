@@ -26,6 +26,8 @@
 
             game.DisplayNews();
 
+            // Testar för git - Naser
+
         }
     }
 }

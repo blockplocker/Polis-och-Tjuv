@@ -50,6 +50,17 @@ namespace Polis_och_Tjuv
                                   person is Thief ? "T" : "");
             Console.ForegroundColor = ConsoleColor.White;
         }
+        public void DisplayAllPersons(List<Person> persons)
+        {
+            foreach (Person person in persons)
+            {
+                Console.SetCursorPosition(person.PosX, person.PosY);
+                person.Move();
+                Console.Write(" ");
+                DisplayPerson(person);
+
+            }
+        }
         public void DisplayCity(List<Person> persons)
         {
             //Console.WriteLine();
@@ -79,6 +90,8 @@ namespace Polis_och_Tjuv
                             if (person2 is Citizen)
                             {
                                 ((Thief)person).Steal(person2 as Citizen, this);
+                                PersonsMet = true;
+
                             }
                         }
                     }

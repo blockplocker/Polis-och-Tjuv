@@ -36,30 +36,24 @@
             persons.Add(thief9);
             persons.Add(police);
 
-            thief.Steal(citizen, game);
-            police.Seize(thief, game);
+            
 
             game.DisplayCity(persons);
             game.DisplayNews();
             while (true)
             {
-                //game.DetectPersonCollision(persons);
-                foreach (Person person in persons)
-                {
-                    Console.SetCursorPosition(person.PosX, person.PosY);
-                    person.Move();
-                    Console.Write(" ");
-                    game.DisplayPerson(person);
-
-                }
+                game.DetectPersonCollision(persons);
+                game.DisplayAllPersons(persons);
                 if (game.PersonsMet)
                 {
                 Console.Clear();
                 game.DisplayCity(persons);
 
                 game.DisplayNews();
-
+                    game.DisplayAllPersons(persons);
+                    Thread.Sleep(1000);
                 }
+                    game.PersonsMet = false;
                 Thread.Sleep(200);
 
             }

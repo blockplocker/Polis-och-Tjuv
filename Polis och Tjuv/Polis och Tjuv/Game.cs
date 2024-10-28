@@ -30,17 +30,27 @@ namespace Polis_och_Tjuv
         public void DisplayNews()
         {
             Console.WriteLine("=NEWS FEED============================================================================================");
+
             for (int i = NewsFeed.Count; i > 0; i--)
             {
-                Console.WriteLine(i + ": " + NewsFeed[i - 1]);
+                if (NewsFeed.Count - i < 5)
+                {
+                    Console.WriteLine(i + ": " + NewsFeed[i - 1]);
+
+                }
+
             }
+            //for (int i = NewsFeed.Count; i > 0; i--)
+            //{
+            //    Console.WriteLine(i + ": " + NewsFeed[i - 1]);
+            //}
 
         }
         public void DisplayPerson(Person person)
         {
-            
+
             Console.SetCursorPosition(person.PosX, person.PosY);
-            
+
             ConsoleColor color = (person is Citizen ? ConsoleColor.Green :
                                   person is Police ? ConsoleColor.Blue :
                                   person is Thief ? ConsoleColor.Red : ConsoleColor.White);
@@ -50,12 +60,14 @@ namespace Polis_och_Tjuv
                                   person is Thief ? "T" : "");
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public void DisplayAllPersons(List<Person> persons)
+        public void PersonLogic(List<Person> persons)
         {
             foreach (Person person in persons)
             {
+                DetectPersonCollision(persons, person);
                 Console.SetCursorPosition(person.PosX, person.PosY);
                 person.Move();
+
                 Console.Write(" ");
                 DisplayPerson(person);
 
@@ -70,33 +82,64 @@ namespace Polis_och_Tjuv
                 Console.Write("X");
                 for (int x = 0; x < 100; x++)
                 {
-                        Console.Write(" ");
-                    
+                    Console.Write(" ");
+
                 }
                 Console.Write("X");
                 Console.WriteLine();
             }
         }
-        public void DetectPersonCollision(List<Person> persons)
+        public void DetectPersonCollision(List<Person> persons, Person person)
         {
-            foreach(Person person in persons)
-            {
-                foreach (Person person2 in persons)
-                {
-                    if(person.PosX == person2.PosX && person.PosY == person2.PosY)
-                    {
-                        if (person is Thief)
-                        {
-                            if (person2 is Citizen)
-                            {
-                                ((Thief)person).Steal(person2 as Citizen, this);
-                                PersonsMet = true;
 
-                            }
+            foreach (Person person2 in persons)
+            {
+                if (person.PosX == person2.PosX && person.PosY == person2.PosY)
+                {
+                    if ((person is Thief && person2 is Citizen) || (person2 is Thief && person is Citizen))
+                    {
+                        if (person is Thief && person2 is Citizen)
+                        {
+                            ((Thief)person).Steal(person2 as Citizen, this);
                         }
+                        else
+                        {
+                            ((Thief)person2).Steal(person as Citizen, this);
+                        }
+                        PersonsMet = true;
+                        return;
+
+                    }
+                    if ((person is Thief && person2 is Police) || (person2 is Thief && person is Police))
+                    {
+                        if (person is Thief && person2 is Police)
+                        {
+                            ((Police)person2).Seize(person as Thief, this);
+                        }
+                        else
+                        {
+                            ((Police)person).Seize(person2 as Thief, this);
+                        }
+                        PersonsMet = true;
+                        return;
+                    }
+                    if ((person is Citizen && person2 is Police) || (person2 is Citizen && person is Police))
+                    {
+                        if (person is Citizen)
+                        {
+                            NewsFeed.Add($"{person.Name} says hello to {person2.Name}");
+                        }
+                        else
+                        {
+                            NewsFeed.Add($"{person2.Name} says hello to {person.Name}");
+                        }
+                        PersonsMet = true;
+                        return;
                     }
                 }
+
             }
+
         }
     }
 }

@@ -11,15 +11,13 @@ namespace Polis_och_Tjuv
         public int PosX { get; set; }
         public int PosY { get; set; }
         public string  Name { get; set; }
-        public string SayHello { get; set; }
         public int MoveX { get; set; }
         public int MoveY { get; set; }
 
-        public Person(string name, string sayHello)
+        public Person(string name)
         {
             GetPos();
             Name = name;
-            SayHello = sayHello;
 
             GetMovment();
         }

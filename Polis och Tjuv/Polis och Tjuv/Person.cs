@@ -10,18 +10,18 @@ namespace Polis_och_Tjuv
     {
         public int PosX { get; set; }
         public int PosY { get; set; }
-        public string  Name { get; set; }
+        public string Name { get; set; }
         public int MoveX { get; set; }
         public int MoveY { get; set; }
 
         public Person(string name)
         {
-            GetPos();
+            GetPos(100, 25, 1, 1);
             Name = name;
 
             GetMovment();
         }
-        public void GetMovment() 
+        public void GetMovment()
         {
             Random random = new Random();
             MoveX = 0;
@@ -32,14 +32,14 @@ namespace Polis_och_Tjuv
                 MoveY = random.Next(-1, 2);
             }
         }
-        public void Move()
+        public void Move(int xMax, int yMax, int xMin, int yMin)
         {
             while (true)
             {
                 PosX += MoveX;
                 PosY += MoveY;
 
-                if (PosX > 100 || PosX < 1 || PosY < 1 || PosY > 25)
+                if (PosX > xMax || PosX < xMin || PosY < yMin || PosY > yMax)
                 {
                     PosX -= MoveX;
                     PosY -= MoveY;
@@ -53,11 +53,11 @@ namespace Polis_och_Tjuv
         }
 
 
-    public void GetPos()
+        public void GetPos(int xMax, int yMax, int xMin, int yMin)
         {
             Random rand = new Random();
-            PosX = rand.Next(1, 100);
-            PosY = rand.Next(1, 25);
+            PosX = rand.Next(xMin, xMax);
+            PosY = rand.Next(yMin, yMax);
         }
     }
 }

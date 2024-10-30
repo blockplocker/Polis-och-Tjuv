@@ -21,11 +21,41 @@ namespace Polis_och_Tjuv
             PersonsMet = false;
         }
 
-        public void DisplayStatistics()
+        public void DisplayStatistics(List<Person> persons)
         {
-            Console.WriteLine("=STATISTICS=========================================");
+            int cItems = 0;
+            int pItems = 0;
+            int tItems = 0;
+
+            foreach (Person p in persons)
+            {
+                if (p is Citizen)
+                {
+                    cItems += ((Citizen)p).Items.Count();
+                }
+
+                if (p is Thief)
+                {
+                    tItems += ((Thief)p).StolenItems.Count();
+
+                }
+                if (p is Police)
+                {
+                    pItems += ((Police)p).SeizedItems.Count();
+
+                }
+            }
+
+
+
+            Console.WriteLine("=STATISTICS===========================================================================================");
             Console.WriteLine("Robbed Citizens: " + RobbedCitizens);
             Console.WriteLine("Arested Thiefs: " + ArestedThiefs);
+            Console.WriteLine("Citizens have " + cItems + " items in total");
+            Console.WriteLine("Police have " + pItems + " items in total");
+            Console.WriteLine("Thiefs have " + tItems + " items in total");
+
+
         }
         public void DisplayNews()
         {
@@ -60,17 +90,31 @@ namespace Polis_och_Tjuv
                                   person is Thief ? "T" : "");
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public void PersonLogic(List<Person> persons)
+        public void PersonLogic(List<Person> persons, Prison prison)
         {
             foreach (Person person in persons)
             {
-                DetectPersonCollision(persons, person);
-                Console.SetCursorPosition(person.PosX, person.PosY);
-                person.Move();
+                DetectPersonCollision(persons, person, prison);
 
-                Console.Write(" ");
-                DisplayPerson(person);
+                if (person is not Thief)
+                {
 
+
+                    Console.SetCursorPosition(person.PosX, person.PosY);
+                    person.Move(100, 25, 1, 1);
+
+                    Console.Write(" ");
+                    DisplayPerson(person);
+                }
+                else if (!((Thief)person).IsPrisoned)
+                {
+
+                    Console.SetCursorPosition(person.PosX, person.PosY);
+                    person.Move(100, 25, 1, 1);
+
+                    Console.Write(" ");
+                    DisplayPerson(person);
+                }
             }
         }
         public void DisplayCity(List<Person> persons)
@@ -89,7 +133,7 @@ namespace Polis_och_Tjuv
                 Console.WriteLine();
             }
         }
-        public void DetectPersonCollision(List<Person> persons, Person person)
+        public void DetectPersonCollision(List<Person> persons, Person person, Prison prison)
         {
 
             foreach (Person person2 in persons)
@@ -114,11 +158,11 @@ namespace Polis_och_Tjuv
                     {
                         if (person is Thief && person2 is Police)
                         {
-                            ((Police)person2).Seize(person as Thief, this);
+                            ((Police)person2).Seize(person as Thief, this, prison);
                         }
                         else
                         {
-                            ((Police)person).Seize(person2 as Thief, this);
+                            ((Police)person).Seize(person2 as Thief, this, prison);
                         }
                         PersonsMet = true;
                         return;

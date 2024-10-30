@@ -47,26 +47,34 @@ namespace Polis_och_Tjuv
             }
 
 
-
+            Console.SetCursorPosition(0, 26);
             Console.WriteLine("=STATISTICS===========================================================================================");
             Console.WriteLine("Robbed Citizens: " + RobbedCitizens);
             Console.WriteLine("Arested Thiefs: " + ArestedThiefs);
-            Console.WriteLine("Citizens have " + cItems + " items in total");
-            Console.WriteLine("Police have " + pItems + " items in total");
-            Console.WriteLine("Thiefs have " + tItems + " items in total");
+            Console.WriteLine("Citizens have " + cItems + " items in total   ");
+            Console.WriteLine("Police have " + pItems + " items in total   ");
+            Console.WriteLine("Thiefs have " + tItems + " items in total   ");
 
 
         }
         public void DisplayNews()
         {
+            Console.SetCursorPosition(0, 32);
             Console.WriteLine("=NEWS FEED============================================================================================");
 
+            int row = 33;
             for (int i = NewsFeed.Count; i > 0; i--)
             {
                 if (NewsFeed.Count - i < 5)
                 {
-                    Console.WriteLine(i + ": " + NewsFeed[i - 1]);
-
+                    Console.SetCursorPosition(0, row);
+                    for (int j = 0; j < 100; j++)
+                    {
+                        Console.Write(" ");
+                    }
+                    Console.SetCursorPosition(0, row);
+                    Console.Write(i + ": " + NewsFeed[i - 1]);
+                    row++;
                 }
 
             }

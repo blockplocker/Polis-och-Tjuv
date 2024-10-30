@@ -35,16 +35,16 @@
                 if (game.PersonsMet)
                 {
 
-                    Console.Clear();
+                    // Console.Clear();
 
-                    game.DisplayCity(persons);
+                    //game.DisplayCity(persons);
                     game.DisplayStatistics(persons);
                     game.DisplayNews();
 
 
-                    game.PersonLogic(persons, prison);
-                    prison.DisplayPrison();
-                    prison.DisplayPrisoners();
+                   // game.PersonLogic(persons, prison);
+                    //prison.DisplayPrison();
+                    //prison.DisplayPrisoners();
 
                     Thread.Sleep(1000);
                     game.PersonsMet = false;

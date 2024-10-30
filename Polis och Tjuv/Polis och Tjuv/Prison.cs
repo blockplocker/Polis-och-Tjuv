@@ -71,6 +71,8 @@ namespace Polis_och_Tjuv
             {
                 if (prisoner.ReleaseDay == Day)
                 {
+                    Console.SetCursorPosition(prisoner.PosX, prisoner.PosY);
+                    Console.Write(" ");
                     prisoner.IsPrisoned = false;
                     prisoner.GetPos(100, 25, 1, 1);
                     Prisoners.Remove(prisoner);

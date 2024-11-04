@@ -89,39 +89,34 @@ namespace Polis_och_Tjuv
                                   person is Thief ? "T" : "");
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public void PersonLogic(List<Person> persons, Prison prison)
+        public void PersonMove(List<Person> persons, Person person)
         {
-            foreach (Person person in persons)
+            for (int i = 0; i < persons.Count; i++)
             {
-                DetectPersonCollision(persons, person, prison);
-
-                for (int i = 0; i < persons.Count; i++)
+                if (persons[i] != person && person.PosX == persons[i].PosX && person.PosY == persons[i].PosY && person.MoveX == persons[i].MoveX && person.MoveY == persons[i].MoveY)
                 {
-                    if (persons[i] != person && person.PosX == persons[i].PosX && person.PosY == persons[i].PosY && person.MoveX == persons[i].MoveX && person.MoveY == persons[i].MoveY)
-                    {
-                        person.GetMovment();
-                    }
-                }
-
-                if (person is not Thief)
-                {
-                    Console.SetCursorPosition(person.PosX, person.PosY);
-                    person.Move(100, 25, 1, 1);
-
-                    Console.Write(" ");
-                    DisplayPerson(person);
-                }
-                else if (!((Thief)person).IsPrisoned)
-                {
-                    Console.SetCursorPosition(person.PosX, person.PosY);
-                    person.Move(100, 25, 1, 1);
-
-                    Console.Write(" ");
-                    DisplayPerson(person);
+                    person.GetMovment();
                 }
             }
+
+            if (person is not Thief)
+            {
+                Console.SetCursorPosition(person.PosX, person.PosY);
+                person.Move(100, 25, 1, 1);
+
+                Console.Write(" ");
+                DisplayPerson(person);
+            }
+            else if (!((Thief)person).IsPrisoned)
+            {
+                Console.SetCursorPosition(person.PosX, person.PosY);
+                person.Move(100, 25, 1, 1);
+
+                Console.Write(" ");
+                DisplayPerson(person);
+            }
         }
-        public void DisplayCity(List<Person> persons)
+        public void DisplayCity()
         {
             Console.WriteLine("=CITY=================================================================================================");
             for (int y = 0; y < 25; y++)
@@ -135,47 +130,47 @@ namespace Polis_och_Tjuv
                 Console.WriteLine();
             }
         }
-        public void DetectPersonCollision(List<Person> persons, Person person, Prison prison)
+        public void DetectPersonCollision(List<Person> persons, Prison prison, Person person)
         {
-            foreach (Person person2 in persons)
+            for (int person2 = 0; person2 < persons.Count; person2++)
             {
-                if (person.PosX == person2.PosX && person.PosY == person2.PosY)
+                if (persons[person2] != person && persons[person2].PosX == person.PosX && persons[person2].PosY == person.PosY)
                 {
-                    if ((person is Thief && person2 is Citizen) || (person2 is Thief && person is Citizen))
+                    if ((persons[person2] is Thief && person is Citizen) || (person is Thief && persons[person2] is Citizen))
                     {
-                        if (person is Thief && person2 is Citizen)
+                        if (persons[person2] is Thief && person is Citizen)
                         {
-                            ((Thief)person).Steal(person2 as Citizen, this);
+                            ((Thief)persons[person2]).Steal(person as Citizen, this);
                         }
                         else
                         {
-                            ((Thief)person2).Steal(person as Citizen, this);
+                            ((Thief)person).Steal(persons[person2] as Citizen, this);
                         }
                         PersonsMet = true;
                         return;
                     }
-                    if ((person is Thief && person2 is Police) || (person2 is Thief && person is Police))
+                    if ((persons[person2] is Thief && person is Police) || (person is Thief && persons[person2] is Police))
                     {
-                        if (person is Thief && person2 is Police)
+                        if (persons[person2] is Thief && person is Police)
                         {
-                            ((Police)person2).Seize(person as Thief, this, prison);
+                            ((Police)person).Seize(persons[person2] as Thief, this, prison);
                         }
                         else
                         {
-                            ((Police)person).Seize(person2 as Thief, this, prison);
+                            ((Police)persons[person2]).Seize(person as Thief, this, prison);
                         }
                         PersonsMet = true;
                         return;
                     }
-                    if ((person is Citizen && person2 is Police) || (person2 is Citizen && person is Police))
+                    if ((persons[person2] is Citizen && person is Police) || (person is Citizen && persons[person2] is Police))
                     {
-                        if (person is Citizen)
+                        if (persons[person2] is Citizen)
                         {
-                            NewsFeed.Add($"{person.Name} says hello to {person2.Name}");
+                            NewsFeed.Add($"{persons[person2].Name} says hello to {person.Name}");
                         }
                         else
                         {
-                            NewsFeed.Add($"{person2.Name} says hello to {person.Name}");
+                            NewsFeed.Add($"{person.Name} says hello to {persons[person2].Name}");
                         }
                         PersonsMet = true;
                         return;

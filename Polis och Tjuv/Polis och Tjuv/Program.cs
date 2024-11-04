@@ -27,13 +27,18 @@ namespace Polis_och_Tjuv
                 persons.Add(police);
             }
 
-            game.DisplayCity(persons);
+            game.DisplayCity();
             game.DisplayStatistics(persons);
             game.DisplayNews();
             prison.DisplayPrison();
             while (true)
             {
-                game.PersonLogic(persons, prison);
+                foreach (Person person in persons)
+                {
+                    game.PersonMove(persons, person);
+                    game.DetectPersonCollision(persons, prison, person);
+                }
+
                 prison.ReleasePrisoner(persons, game);
                 prison.DisplayPrisoners();
 

@@ -25,7 +25,6 @@ namespace Polis_och_Tjuv
             MaxY = 16;
             MinX = 103;
             MinY = 1;
-
         }
 
         public void DisplayPrison()
@@ -34,7 +33,6 @@ namespace Polis_och_Tjuv
             string row = $"|                       |";
             string bottomRow = $"=========================";
 
-
             Console.SetCursorPosition(102, 0);
             Console.Write(topRow);
 
@@ -42,19 +40,15 @@ namespace Polis_och_Tjuv
             {
                 Console.SetCursorPosition(102, i);
                 Console.Write(row);
-
             }
             Console.SetCursorPosition(102, 17);
             Console.Write(bottomRow);
-
-
         }
 
         public void DisplayPrisoners()
         {
             foreach (Thief prisoner in Prisoners)
             {
-
                 Console.SetCursorPosition(prisoner.PosX, prisoner.PosY);
                 prisoner.Move(MaxX, MaxY, MinX, MinY);
                 Console.Write(" ");
@@ -65,7 +59,6 @@ namespace Polis_och_Tjuv
 
         public void ReleasePrisoner(List<Person> persons, Game game)
         {
-
             Day++;
             foreach (Thief prisoner in Prisoners.ToList())
             {
@@ -81,6 +74,5 @@ namespace Polis_och_Tjuv
                 }
             }
         }
-
     }
 }

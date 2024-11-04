@@ -10,12 +10,10 @@ namespace Polis_och_Tjuv
     {
         public List<string> StolenItems { get; set; }
         public bool IsPrisoned { get; set; }
-
         public int ReleaseDay { get; set; }
 
         public Thief(string name) : base(name)
         {
-
             StolenItems = new List<string>();
             IsPrisoned = false;
         }
@@ -28,13 +26,11 @@ namespace Polis_och_Tjuv
                 StolenItems.Add(citizen.Items[random]);
                 citizen.Items.RemoveAt(random);
                 game.NewsFeed.Add($"{Name} stole {StolenItems[StolenItems.Count - 1]} from {citizen.Name}");
-
             }
             else if (citizen.Items.Count == 0)
             {
                 game.NewsFeed.Add($"{Name} tried to steal from {citizen.Name} but got nothing");
             }
         }
-
     }
 }

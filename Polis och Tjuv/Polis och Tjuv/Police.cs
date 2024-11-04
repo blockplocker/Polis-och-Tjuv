@@ -10,7 +10,6 @@ namespace Polis_och_Tjuv
     internal class Police : Person
     {
         public List<string> SeizedItems { get; set; }
-
         public Police(string name) : base(name)
         {
             SeizedItems = new List<string>();
@@ -39,7 +38,6 @@ namespace Polis_och_Tjuv
 
         public int CalcDays(int itemsStolen)
         {
-
             return itemsStolen * 20;
         }
 

@@ -33,16 +33,13 @@ namespace Polis_och_Tjuv
                 {
                     cItems += ((Citizen)p).Items.Count();
                 }
-
                 if (p is Thief)
                 {
                     tItems += ((Thief)p).StolenItems.Count();
-
                 }
                 if (p is Police)
                 {
                     pItems += ((Police)p).SeizedItems.Count();
-
                 }
             }
 
@@ -76,13 +73,7 @@ namespace Polis_och_Tjuv
                     Console.Write(i + ": " + NewsFeed[i - 1]);
                     row++;
                 }
-
             }
-            //for (int i = NewsFeed.Count; i > 0; i--)
-            //{
-            //    Console.WriteLine(i + ": " + NewsFeed[i - 1]);
-            //}
-
         }
         public void DisplayPerson(Person person)
         {
@@ -104,10 +95,16 @@ namespace Polis_och_Tjuv
             {
                 DetectPersonCollision(persons, person, prison);
 
+                for (int i = 0; i < persons.Count; i++)
+                {
+                    if (persons[i] != person && person.PosX == persons[i].PosX && person.PosY == persons[i].PosY && person.MoveX == persons[i].MoveX && person.MoveY == persons[i].MoveY)
+                    {
+                        person.GetMovment();
+                    }
+                }
+
                 if (person is not Thief)
                 {
-
-
                     Console.SetCursorPosition(person.PosX, person.PosY);
                     person.Move(100, 25, 1, 1);
 
@@ -116,7 +113,6 @@ namespace Polis_och_Tjuv
                 }
                 else if (!((Thief)person).IsPrisoned)
                 {
-
                     Console.SetCursorPosition(person.PosX, person.PosY);
                     person.Move(100, 25, 1, 1);
 
@@ -127,7 +123,6 @@ namespace Polis_och_Tjuv
         }
         public void DisplayCity(List<Person> persons)
         {
-            //Console.WriteLine();
             Console.WriteLine("=CITY=================================================================================================");
             for (int y = 0; y < 25; y++)
             {
@@ -135,7 +130,6 @@ namespace Polis_och_Tjuv
                 for (int x = 0; x < 100; x++)
                 {
                     Console.Write(" ");
-
                 }
                 Console.Write("X");
                 Console.WriteLine();
@@ -143,7 +137,6 @@ namespace Polis_och_Tjuv
         }
         public void DetectPersonCollision(List<Person> persons, Person person, Prison prison)
         {
-
             foreach (Person person2 in persons)
             {
                 if (person.PosX == person2.PosX && person.PosY == person2.PosY)
@@ -160,7 +153,6 @@ namespace Polis_och_Tjuv
                         }
                         PersonsMet = true;
                         return;
-
                     }
                     if ((person is Thief && person2 is Police) || (person2 is Thief && person is Police))
                     {
@@ -189,9 +181,7 @@ namespace Polis_och_Tjuv
                         return;
                     }
                 }
-
             }
-
         }
     }
 }

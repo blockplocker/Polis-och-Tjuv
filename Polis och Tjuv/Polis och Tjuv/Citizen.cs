@@ -11,7 +11,7 @@ namespace Polis_och_Tjuv
         public List<string> Items { get; set; }
         public Citizen(string name) : base(name)
         {
-            Items = new List<string> { "Phone", "Wallet", "Keys" };
+            Items = new List<string> { "Phone", "Wallet", "Keys", "Watch" };
         }
     }
 }

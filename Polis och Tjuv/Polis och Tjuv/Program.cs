@@ -1,4 +1,6 @@
-﻿namespace Polis_och_Tjuv
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Polis_och_Tjuv
 {
     internal class Program
     {
@@ -11,11 +13,15 @@
             List<Person> persons = new List<Person>();
             Prison prison = new Prison();
 
+            List<string> name = new List<string> { "Adam", "Bertil", "Cesar", "David", "Erik", "Filip", "Gustav", "Henrik", "Ivar", "Johan", "Kalle", "Ludvig", "Martin", "Niklas", "Olof", "Petter", "Qvintus", "Rudolf", "Sigurd", "Tore", "Urban", "Viktor", "Wilhelm", "Xerxes", "Yngve", "Zorro" };
+            Queue<string> names = new Queue<string>(name);
+
+
             for (int i = 0; i < 8; i++)
             {
-                Citizen citizen = new Citizen("Citizen");
-                Thief thief = new Thief("Thief");
-                Police police = new Police("Police");
+                Citizen citizen = new Citizen("Citizen " + names.Dequeue());
+                Thief thief = new Thief("Thief " + names.Dequeue());
+                Police police = new Police("Police " + names.Dequeue());
                 persons.Add(citizen);
                 persons.Add(thief);
                 persons.Add(police);
@@ -27,30 +33,18 @@
             prison.DisplayPrison();
             while (true)
             {
-                //game.DetectPersonCollision(persons);
                 game.PersonLogic(persons, prison);
                 prison.ReleasePrisoner(persons, game);
                 prison.DisplayPrisoners();
 
                 if (game.PersonsMet)
                 {
-
-                    // Console.Clear();
-
-                    //game.DisplayCity(persons);
                     game.DisplayStatistics(persons);
                     game.DisplayNews();
-
-
-                   // game.PersonLogic(persons, prison);
-                    //prison.DisplayPrison();
-                    //prison.DisplayPrisoners();
-
                     Thread.Sleep(1000);
                     game.PersonsMet = false;
                 }
                 Thread.Sleep(200);
-
             }
         }
     }

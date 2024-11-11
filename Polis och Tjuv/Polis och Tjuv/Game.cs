@@ -99,7 +99,7 @@ namespace Polis_och_Tjuv
                 }
             }
 
-            if (person is not Thief)
+            if (person is not Thief || ((Thief)person).IsPrisoned is not true)
             {
                 Console.SetCursorPosition(person.PosX, person.PosY);
                 person.Move(100, 25, 1, 1);
@@ -107,14 +107,7 @@ namespace Polis_och_Tjuv
                 Console.Write(" ");
                 DisplayPerson(person);
             }
-            else if (!((Thief)person).IsPrisoned)
-            {
-                Console.SetCursorPosition(person.PosX, person.PosY);
-                person.Move(100, 25, 1, 1);
-
-                Console.Write(" ");
-                DisplayPerson(person);
-            }
+            
         }
         public void DisplayCity()
         {
